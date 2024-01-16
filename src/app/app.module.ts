@@ -20,6 +20,7 @@ import { NobelComponent } from './components/nobel/nobel.component';
 import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RatingComponent } from './sharedComponents/rating/rating.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -28,7 +29,9 @@ import { RatingComponent } from './sharedComponents/rating/rating.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, FormsModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration()

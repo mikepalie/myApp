@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
+import { NobelService } from './nobel.service'
+import { Prize } from './models';
 
 @Component({
   selector: 'app-nobel',
@@ -6,5 +8,35 @@ import { Component } from '@angular/core';
   styleUrl: './nobel.component.css'
 })
 export class NobelComponent {
+
+  //Properties
+  Prizes!: Prize[];
+  Categories!: string[];
+  SearchCategory!: string;
+  FilteredPrizes!: Prize[];
+  //MyMethods
+  FilterRecords() {
+    this.FilteredPrizes = this.Prizes.filter(x => x.category.includes(this.SearchCategory));
+  }
+
+  //Constructor
+  constructor(private NobelService: NobelService) {
+
+  }
+
+  //Hooks
+  ngOnInit(): void {
+    this.NobelService.getNobel().subscribe(
+      data => {
+         this.Prizes = data.prizes;
+         this.FilteredPrizes = this.Prizes
+      },          //OnSuccess
+      error => console.log("error"),              //OnError
+      () => this.Categories = [...new Set(this.Prizes.map(x => x.category))],   //OnComplete
+    );
+  }
+
+
+
 
 }

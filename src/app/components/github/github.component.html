@@ -1,1 +1,15 @@
-<p>github works!</p>
+<input [(ngModel)]="SearchName" type="text" placeholder="Search"     />
+
+<button (click)="ShowUser()">Search</button>
+
+
+<div *ngIf="User; else NoUserBlock">
+    <br />
+    <strong>{{User.login}}</strong>
+    <br />
+    <img [src]="User.avatar_url" />
+</div>
+
+<ng-template #NoUserBlock>
+    <div>No User Found</div>
+</ng-template>

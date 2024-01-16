@@ -1,1 +1,39 @@
-<p>nobel works!</p>
+<input [(ngModel)]="SearchCategory"              list="mitsos" type="search" placeholder="Category" />
+<datalist id="mitsos">
+    <option *ngFor="let cat of Categories" value={{cat}}></option>
+</datalist>
+
+<button (click)="FilterRecords()">Search</button>
+
+
+
+
+<table class="table table-dark table-hover">
+
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Category</th>
+            <th>Laureates</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prize of FilteredPrizes">
+            <td>{{prize.year}}</td>
+            <td>{{prize.category}}</td>
+            <td>
+                <ul *ngIf="prize.laureates; else motivationBlock">
+                    <li *ngFor="let laureate of prize.laureates">{{laureate.firstname + " " +
+                        (laureate.surname?laureate.surname:"")}}</li>
+                </ul>
+                <ng-template #motivationBlock>
+                    <ul>
+                        <li>{{prize.overallMotivation}}</li>
+                    </ul>
+                </ng-template>
+            </td>
+        </tr>
+    </tbody>
+
+
+</table>
