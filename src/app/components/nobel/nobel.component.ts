@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NobelService } from './nobel.service'
 import { Prize } from './models';
 
@@ -8,6 +8,7 @@ import { Prize } from './models';
   styleUrl: './nobel.component.css'
 })
 export class NobelComponent {
+
 
   //Properties
   Prizes!: Prize[];
@@ -23,15 +24,16 @@ export class NobelComponent {
   constructor(private NobelService: NobelService) {
 
   }
-
+  HasError: boolean = false;
   //Hooks
   ngOnInit(): void {
     this.NobelService.getNobel().subscribe(
       data => {
-         this.Prizes = data.prizes;
-         this.FilteredPrizes = this.Prizes
+        this.Prizes = data.prizes;
+        this.FilteredPrizes = this.Prizes;
+        this.HasError = false;
       },          //OnSuccess
-      error => console.log("error"),              //OnError
+      error => this.HasError = true,              //OnError
       () => this.Categories = [...new Set(this.Prizes.map(x => x.category))],   //OnComplete
     );
   }

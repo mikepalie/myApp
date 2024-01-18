@@ -1,39 +1,27 @@
-<input [(ngModel)]="SearchCategory"              list="mitsos" type="search" placeholder="Category" />
-<datalist id="mitsos">
-    <option *ngFor="let cat of Categories" value={{cat}}></option>
-</datalist>
+<div *ngIf="!HasError; else ErrorBlock">
+    <div *ngIf="FilteredPrizes; else loadingBlock">
 
-<button (click)="FilterRecords()">Search</button>
+        <input [(ngModel)]="SearchCategory" list="mitsos" type="search" placeholder="Category" />
+        <datalist id="mitsos">
+            <option *ngFor="let cat of Categories" value={{cat}}></option>
+        </datalist>
+        <button (click)="FilterRecords()">Search</button>
 
+        <div *ngIf="FilteredPrizes.length; else NoRecordsBlock">
+          <app-nobel-table [Prizes]="FilteredPrizes"></app-nobel-table>
+        </div>
+        <ng-template #NoRecordsBlock>
+            <div>No Records Found....</div>
+        </ng-template>
 
-
-
-<table class="table table-dark table-hover">
-
-    <thead>
-        <tr>
-            <th>Year</th>
-            <th>Category</th>
-            <th>Laureates</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let prize of FilteredPrizes">
-            <td>{{prize.year}}</td>
-            <td>{{prize.category}}</td>
-            <td>
-                <ul *ngIf="prize.laureates; else motivationBlock">
-                    <li *ngFor="let laureate of prize.laureates">{{laureate.firstname + " " +
-                        (laureate.surname?laureate.surname:"")}}</li>
-                </ul>
-                <ng-template #motivationBlock>
-                    <ul>
-                        <li>{{prize.overallMotivation}}</li>
-                    </ul>
-                </ng-template>
-            </td>
-        </tr>
-    </tbody>
+    </div>
+    <ng-template #loadingBlock>
+        <div>Loading....</div>
+    </ng-template>
 
 
-</table>
+
+</div>
+<ng-template #ErrorBlock>
+    <div>Something Went Wrong</div>
+</ng-template>

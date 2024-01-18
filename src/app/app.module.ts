@@ -21,11 +21,14 @@ import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RatingComponent } from './sharedComponents/rating/rating.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NobelTableComponent } from './sharedComponents/nobel-table/nobel-table.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent, StudentComponent, TrainerComponent, EmployeeComponent, DriverComponent, MovieComponent, AddDashBetweenPipe, FulltimePipe, ProductComponent, GithubComponent, NobelComponent, HomeComponent, ErrorComponent, RatingComponent
+    AppComponent, StudentComponent, TrainerComponent, EmployeeComponent, DriverComponent, MovieComponent, AddDashBetweenPipe, FulltimePipe, ProductComponent, GithubComponent, NobelComponent, HomeComponent, ErrorComponent, RatingComponent, NobelTableComponent, ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
